@@ -1,0 +1,5 @@
+ami = "ami-074dc0a6f6c764218"
+instance_type = "t2.micro"
+tag_name = "Bhvik-instance-1"
+tag_owner = "bhvik.jain@cloudeq.com"
+tag_purpose = "Traning for batch-6"
