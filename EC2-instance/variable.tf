@@ -17,3 +17,14 @@ variable "tag_owner" {
 variable "tag_purpose" {
   type = string
 }
+variable "vol_tag_name" {
+  type = string
+}
+
+variable "vol_tag_owner" {
+  type = string
+}
+
+variable "vol_tag_purpose" {
+  type = string
+}
