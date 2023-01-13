@@ -1,4 +1,4 @@
-ami = "ami-074dc0a6f6c764218"
+ami = "ami-0b5eea76982371e91"
 instance_type = "t2.micro"
 tag_name = "Bhvik-instance-1"
 tag_owner = "bhvik.jain@cloudeq.com"
