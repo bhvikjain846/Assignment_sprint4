@@ -11,7 +11,7 @@ on :
         type: string    
 
 env :
-  bucket : bhvik123jain
+  bucket : aarushi-backend2
   tfstate_file : new.tfstate
   region: ${{ github.event.inputs.region }}
 
