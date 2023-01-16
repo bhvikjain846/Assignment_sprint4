@@ -1,64 +1,25 @@
-name : deployment
+name : terraform workflow
 
 on :
-  # push : 
-  #   branches : ["master"]
   
   workflow_dispatch:
     inputs : 
       region :
-        description: "Enter your region name : "
+        description: "Enter region name : "
         required: true  
-        type: string    
 
 env :
-  bucket : aarushi-backend2
+  bucket : mahesh02
   tfstate_file : new.tfstate
   region: ${{ github.event.inputs.region }}
   
 jobs :
-  # news3bucket : 
-  #   runs-on : ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v3 
-  #     - name: Terraform hashicorp setup
-  #       uses: hashicorp/setup-terraform@v2
-  #       with:
-  #         terraform_version: 1.1.7
-
-  #     - name: Configure AWS Credentials
-  #       uses: aws-actions/configure-aws-credentials@v1
-  #       with:
-  #         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  #         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  #         aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-  #         aws-region: ${{ env.region }}
-
-  #     - name: init
-  #       run: |
-  #         cd S3
-  #         terraform init
-      
-  #     - name: plan
-  #       run: |
-  #         cd S3
-  #         terraform plan
-        
-  #     - name: apply
-  #       run: |
-  #         cd S3
-  #         terraform apply -auto-approve
-
-  init_apply :
-
+  init-plan-apply : 
     runs-on : ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3 
       - name: Terraform hashicorp setup
         uses: hashicorp/setup-terraform@v2
-        with:
-          terraform_version: 1.1.7
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -70,10 +31,17 @@ jobs :
 
       - name: init
         run: |
-          cd EC2-instance
+          cd S3-bucket
           terraform init -reconfigure -backend-config="bucket=${{ env.bucket }}" -backend-config="key=${{ env.tfstate_file}}" -backend-config="region=${{ env.region }}"
       
+
+      - name: plan
+        run: |
+          cd S3-bucket
+          terraform plan
+        
       - name: apply
         run: |
-          cd EC2-instance
+          cd S3-bucket
           terraform apply -auto-approve
+  
